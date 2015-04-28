@@ -2,6 +2,7 @@
 <html lang="fr">
   <head>
     <?php echo $this->render('head.phtml'); ?>
+    <?php echo $this->cssHelper() ?>
   </head>
   
   
@@ -19,5 +20,6 @@
        <?php echo $this->render('footer.phtml'); ?>
    </footer>
         <?php echo $this->render('footer_js.phtml'); ?>
+        <?php echo $this->javascriptHelper() ?> 
   </body>
 </html>
