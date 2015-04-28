@@ -1,0 +1,21 @@
+/* Move down content because we have a fixed navbar that is 50px tall */
+body 
+{
+          padding-top: 70px;
+          padding-bottom: 20px;
+}
+
+.border-left
+{
+   border-left : 1px solid #000;
+}
+
+.border2px-all
+{
+    border : 2px solid #000;
+}
+
+textarea
+{
+    max-width:100%;
+}

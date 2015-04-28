@@ -1,0 +1,20 @@
+<li class="dropdown">
+  <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+    Se connecter <strong class="caret"></strong>
+  </a>
+  <div class="dropdown-menu" style="background:#fff; padding:15px;">
+    <form id='f_connect' action ='/user/connexion' method='post'>
+
+      <label for="connect_login">Login</label>
+      <input type="text" placeholder="Login" name='connect_login' id='f_connect_login' class="form-control input-sm">
+      <br>
+
+      <label for="connect_password"><?php echo $this->translate('mp');?></label>
+      <input type="password" placeholder="Mot de passe" name='connect_password' id='connect_password' class="form-control input-sm">
+      <br>
+
+      <button type="submit" class="btn btn-success  btn-sm">Se connecter</button>
+      <hr><a href="/user/inscription">Pas encore inscrit ?</a>
+    </form>
+  </div>
+</li>

@@ -1,0 +1,11 @@
+<h1>Profil</h1>
+
+<fieldset>
+    <legend>Mes projets</legend>
+
+    <ul>
+        <?php foreach($this->projets as $projet): ?>
+            <li><?php echo $projet->nom_projet; ?></li>
+        <?php endforeach;?>
+    </ul>
+</fieldset>

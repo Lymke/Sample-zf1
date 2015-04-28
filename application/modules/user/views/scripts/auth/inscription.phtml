@@ -1,0 +1,267 @@
+
+<?php $this->headTitle('Inscription'); ?>
+
+
+<h1>Inscription</h1>
+
+<div class='row'>
+    <div class='col-xs-7 col-sm-7'>
+    <form class="form-horizontal" id='f_insc' method='post'>
+
+        <!-- Login -->
+
+        <div class="form-group" id="f_insc_login_group">
+            <label for="f_insc_login" class="col-sm-2 control-label">Login</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="f_insc_login" name="f_insc_login" placeholder="Login">
+                <span id='help_login' class="help-block"></span>
+            </div>
+        </div>
+
+
+        <!-- Mot de passe 1 -->
+
+        <div class="form-group">
+            <label for="f_insc_mp" class="col-sm-2 control-label">Mot de passe</label>
+            <div class="col-sm-9">
+                <input type="password" class="form-control" id="f_insc_mp" name="f_insc_mp" placeholder="Mot de passe">
+                <span class="help-block" id='help_mp1_vide' style='display:none;'>Le mot de passe n'a pas assez de caractères</span>
+                <span class="help-block" id='help_mp1_securite'>
+                    <span class='row'>
+                        <span class='col-sm-3'>Sûreté :</span>
+                        <span class='col-sm-9'>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-success" style="width:0%"  id="mp_faible">
+                                    <span class="sr-only progress-label">FAIBLE</span>
+                                </div>
+                                <div class="progress-bar progress-bar-warning" style="width:0%" id="mp_moyen">
+                                    <span class="sr-only progress-label">MOYEN</span>
+                                </div>
+                                <div class="progress-bar progress-bar-danger" style="width:0%" id="mp_fort">
+                                    <span class="sr-only progress-label" >FORT</span>
+                                </div>
+                            </div>
+                        </span>
+                    </span>
+                </span>
+            </div>
+        </div>
+
+        <!-- Mot de passe 2 -->
+
+        <div id="f_insc_mp2_group" class="form-group">
+            <label for="f_insc_mp2" class="col-sm-2 control-label">Ressaisir le mot de passe</label>
+            <div class="col-sm-9">
+                <input type="password" class="form-control" id="f_insc_mp2" name="f_insc_mp2" placeholder="Ressaisir le mot de passe">
+                <span class="help-block has-warning" id='help_mp2' style='display:none;'>Le mot de passe saisi est différent</span>
+            </div>
+        </div>
+
+        <!-- email -->
+
+        <div class="form-group">
+            <label for="f_connect_mp" class="col-sm-2 control-label">e-mail</label>
+            <div class="col-sm-9">
+                <input type="email" class="form-control" id="f_insc_email" name="f_insc_email" placeholder="Mot de passe">
+                <span id='help_email'>Avec <a href="http://fr.gravatar.com">gravatar</a>, ton image perso sera automatique !</span>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label for="f_connect_mp" class="<?php echo $this->bootTwitterSpanCol(2);?> control-label">captcha</label>
+            <div class="<?php echo $this->BootTwitterSpanCol(9);?>">
+                <?php  echo $this->recaptchaAPI->recaptcha_get_html($this->publickey); ?>
+                <?php if($this->captchaValide != true) : ?>
+                    <span class="help-block warning">Le captcha a mal été saisi</span>
+                <?php endif;?>
+            </div>
+        </div>
+
+
+        <!-- Submit -->
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-default">S'inscrire !</button>
+            </div>
+        </div>
+
+    </form>
+    </div>
+
+    <!-- **************************** Connexion Facebook *********************** -->
+    <div class="col-xs-5 col-sm-5">
+        <fieldset><legend>Se connecter avec </legend>
+            
+            <div class="box">
+                <fb:login-button perms="email,user_birthday,read_stream"></fb:login-button>
+
+                <!--<div id='facebook_profile_text'></div>-->
+
+            </div>
+            
+            <hr>
+
+            <img src='' id='imgHolder' width="20" height="20" class="img-responsive"/>
+        </fieldset>
+    </div>
+</div>
+
+
+<!-- JS -->
+<script language='javascript'>
+    
+    function checkMp(){
+
+        valid = false;
+
+        if($('#f_insc_mp').val() == '')
+        {
+            $('#mp_faible').css('width','0%');
+            $('#mp_moyen').css('width','0%');
+            $('#mp_fort').css('width','0%');
+            $('#help_mp1_vide').show();
+        }
+        else
+        {
+            // Doit contenir des majuscules, des chiffres et des minuscules
+            var strongRegex = new RegExp("^(?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\W).*$", "g");
+
+            // Doit contenir soit des majuscules et des minuscules soit des minuscules et des chiffres
+            var mediumRegex = new RegExp("^(?=.{7,})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$", "g");
+
+            // Doit faire au minimum six caractères
+            var enoughRegex = new RegExp("(?=.{6,}).*", "g");
+
+            if (false == enoughRegex.test($('#f_insc_mp').val())) 
+            {  
+                $('#mp_faible').css('width','0%');
+                $('#mp_moyen').css('width','0%');
+                $('#mp_fort').css('width','0%');
+                $('#help_mp1_vide').show();
+                valid = false;
+            } 
+             
+            else if (strongRegex.test($('#f_insc_mp').val())) 
+            {  
+                $('#mp_faible').css('width','33%');
+                $('#mp_moyen').css('width','33%');
+                $('#mp_fort').css('width','34%');
+                valid = true;
+            } 
+             
+            else if (mediumRegex.test($('#f_insc_mp').val())) 
+            {  
+                $('#mp_faible').css('width','33%');
+                $('#mp_moyen').css('width','33%');
+                $('#mp_fort').css('width','0%');
+                valid = true;
+                
+            } 
+            else 
+            {
+                $('#mp_faible').css('width','33%');
+                $('#mp_moyen').css('width','0%');
+                $('#mp_fort').css('width','0%');
+                valid = true;
+            }
+            
+        }
+        return valid;		
+    }
+	
+    function checkMp2()
+    {
+        valid = true;
+        //penser à vérifier si le mp est costaud		
+        if($('#f_insc_mp').val() != $('#f_insc_mp2').val())
+        {   $('#help_mp2').show();
+            $('#f_insc_mp2_group').removeClass('has-success').addClass('has-error');
+            valid = false;
+            
+        }
+        else if($('#f_insc_mp').val() != '') //s'ils sont égaux c'est bon, sauf si c'est une valeur vide'
+        {   $('#help_mp2').hide();
+            $('#f_insc_mp2_group').removeClass('has-error').addClass('has-success');
+        }
+				
+        return valid;
+    }
+    
+    
+    function checkLogin(){
+        
+        var valid = false;
+        
+        $('#help_login').html('<img src="/images/loading/1.gif" \n\
+                                    alt="recherche de l\'unicité du login en cours..." />');
+        
+        donnees = { 'login' : $('#f_insc_login').val()};
+
+	$.ajax({		
+		 url: "/user/auth/check-login-ajax",
+		 type: "post",
+		 data: donnees,
+                 async: false,
+		 dataType: "json",//on récupère les infos au format json
+		 success: function (data) 
+		 { 
+                     //si data vaut true c'est que le login est déjà utilisé
+                     if(data == true){
+                         $('#f_insc_login_group').removeClass('has-success').addClass('has-error');
+                         $('#help_login').html('Ce login est déjà utilisé');
+                         valid = false;
+                     }else{
+                         $('#f_insc_login_group').removeClass('has-error').addClass('has-success');
+                         $('#help_login').html('Ce login est libre');
+                         console.log('c vrai');
+                         valid =true;
+                     }
+		     
+		 },
+											 
+		 error: function() 
+		 { 
+			alert('Echec de la requète ..');
+                        valid = false;
+		 }
+											 
+	     });
+        
+        return valid;
+    }
+		
+    $(function(){
+        
+        $('#f_insc_mp').keyup(function(touche){
+            checkMp();
+        });
+        $('#f_insc_mp').blur(function(touche){
+            checkMp();
+        });
+        
+        $('#f_insc_mp2').blur(function(touche){
+            checkMp2();
+        });
+        
+        $('#f_insc_login').blur(function(touche){
+           checkLogin(); 
+        });
+        
+        $('#f_insc').submit(function() 
+        {
+            validMp = checkMp();
+            validMp2 = checkMp2();
+            validLogin = checkLogin();
+            console.log(validLogin);
+            if(validLogin == false){
+                alert('validLogin');
+            }
+
+            return (validMp == true) && (validMp2 == true) && (validLogin == true);
+        });
+			   
+    });
+			
+</script>

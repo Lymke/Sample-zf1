@@ -1,0 +1,146 @@
+<div class='row'>
+    <h1>Bienvenue sur le site du projet SI</h1>
+</div>
+
+
+<div class ="row">
+    <div class='<?php echo $this->BootTwitterSpanCol(12);?>'>
+      <blockquote>
+            Nous sommes heureux de vous présenter notre Projet SI sur les finances.
+      </blockquote>
+      <blockquote>
+        <?php echo $this->translate('stylo');?>
+      </blockquote>
+    </div>
+</div>
+
+<br><br><br>
+<style>
+    
+    #mot
+    {
+        font : 72px bold;
+        color : blue;
+    }
+    #motEn
+    {
+        font : 72px bold;
+        color : red;
+    }
+    
+    
+    
+</style>
+
+<div class='row'>
+    <div class='<?php echo $this->BootTwitterSpanCol(6);?>'  style=' text-align:center;'>
+        <span id='mot'></span>
+    </div>
+    
+    
+    <div class='<?php echo $this->bootTwitterSpanOffsetCol(0);?>'></div>
+    <div class='<?php echo $this->BootTwitterSpanCol(6);?>'>
+        <span id='motEn'></span>
+    </div>
+  
+</div>
+<br><br>
+<div class='container'>
+    <div class='<?php echo $this->bootTwitterSpanOffsetCol(4);?>'>
+         <input type='button' onClick ="moinsVite();" value="Moins vite !">
+         <input type='button' onClick ="mot();" value="C'est parti !!!">
+         <input type='button' onClick ="plusVite();" value="Plus vite !">
+         <input type='text' id='temps' value="">
+    </div>
+</div>
+
+
+<script>
+    $(function(){
+        //$('#motEn').fadeOut();
+    });
+    
+    var temps = 4000;
+    
+    function mot(){
+        $('#motEn').hide();
+        $('#temps').val(temps);
+        
+        var mots = new Array();
+        for(i=0;i<27;i++){
+            mots[i] = new Array();
+        }
+        mots[0]['fr'] = 'annonce,publicité';
+        mots[1]['fr'] = 'mettre une annonce';
+        mots[2]['fr'] = 'éviter';
+        mots[3]['fr'] = 'fait d\'éviter';
+        mots[4]['fr'] = 'se plaindre';
+        mots[5]['fr'] = 'plainte';
+        mots[6]['fr'] = 'précipité, rapide';
+        mots[7]['fr'] = 'se hâter';
+        mots[8]['fr'] = 'précipitament';
+        mots[9]['fr'] = 'propriétaire homme';
+        mots[10]['fr'] = 'propriétaire femme';
+        mots[11]['fr'] = 'bail';
+        mots[12]['fr'] = 'emplacement';
+        mots[13]['fr'] = 'emménager';
+        mots[14]['fr'] = 'locaux,lieux';
+        mots[15]['fr'] = 'satisfaisant';
+        mots[16]['fr'] = 'satisfaction';
+        mots[17]['fr'] = 'satisfaire';
+        mots[18]['fr'] = 'signature';
+        mots[19]['fr'] = 'signer';
+        mots[20]['fr'] = 'spacieux';
+        mots[21]['fr'] = 'espace,place';
+        mots[22]['fr'] = 'locataire';
+        mots[23]['fr'] = 'refléchir à';
+        mots[24]['fr'] = 'vacant, libre';
+        mots[25]['fr'] = 'à louer';
+        mots[26]['fr'] = 'quitter,déménager';     
+                        
+                        
+        mots[0]['en'] = 'advertisement';
+        mots[1]['en'] = 'to advertise';
+        mots[2]['en'] = 'avoid';
+        mots[3]['en'] = 'avoidance';
+        mots[4]['en'] = 'to complain';
+        mots[5]['en'] = 'complaint';
+        mots[6]['en'] = 'hasty';
+        mots[7]['en'] = 'to hasten';
+        mots[8]['en'] = 'hastily';
+        mots[9]['en'] = 'landlord';
+        mots[10]['en'] = 'landlady';
+        mots[11]['en'] = 'lease';
+        mots[12]['en'] = 'location';
+        mots[13]['en'] = 'move in';
+        mots[14]['en'] = 'premises';
+        mots[15]['en'] = 'satisfactory';
+        mots[16]['en'] = 'satisfaction';
+        mots[17]['en'] = 'satisfy';
+        mots[18]['en'] = 'signature';
+        mots[19]['en'] = 'sign';
+        mots[20]['en'] = 'spacious';
+        mots[21]['en'] = 'space';
+        mots[22]['en'] = 'tenant';
+        mots[23]['en'] = 'think over';
+        mots[24]['en'] = 'vacant';
+        mots[25]['en'] = 'vacancy';
+        mots[26]['en'] = 'vacate';     
+                        
+                        
+        nb = Math.floor(Math.random() * 27);
+        $('#mot').html(mots[nb]['fr']);
+        
+        $('#motEn').delay(temps/2).fadeIn();
+        $('#motEn').html(mots[nb]['en']);
+        $('#motEn').delay(temps/4).fadeOut();
+        setTimeout(function(){mot();},temps);
+    }
+    
+    function plusVite(){
+        temps -= 500;
+    }
+    function moinsVite(){
+        temps += 500;
+    }
+</script>

@@ -1,0 +1,39 @@
+<div class='row'>
+    
+    <?php if( $this->user->statut_connexion == User_Model_Constantes_Statutconnexion::FB_CONNECTION) : ?>
+        <h1>Profil de <?php echo $this->user->fb_nom . ' ' . $this->user->fb_prenom ;?></h1>
+    <?php else : ?>
+        <h1>Profil de <?php echo $this->user->login;?></h1>
+    <?php endif;?>
+</div>
+
+<div class="row">
+            <div class="<?php echo $this->BootTwitterSpanCol(3);?>">
+                <?php if( $this->user->statut_connexion == User_Model_Constantes_Statutconnexion::FB_CONNECTION) : ?>
+                    <img class="img-rounded" src='https://graph.facebook.com/<?php echo $this->user->fb_id;?>/picture?width=150&height=150' alt='' />
+                <?php else : ?>
+                    <img class="img-rounded" src="http://www.gravatar.com/avatar/<?php echo $this->user->gravatar;?>?s=150" alt='avatar' />
+                <?php endif;?>
+            </div>
+
+            <div class="clearfix visible-xs"></div>
+    
+            <div class="col-xs-9 col-sm-9">
+                
+                <?php if( $this->user->statut_connexion == User_Model_Constantes_Statutconnexion::FB_CONNECTION) : ?>
+                    <p><strong>Nom : </strong><span id='utilisateur_nom'><?php echo $this->user->fb_prenom;?></span></p>
+                    <p><strong>Prénom : </strong><span id='utilisateur_prenom'><?php echo $this->user->fb_nom;?></span></p>
+                    <p><strong>E-mail : </strong><span id='utilisateur_e_mail'><?php echo $this->user->fb_email;?></span></p>
+                <?php else : ?>
+                        <form id='f_modif'>
+                            <p><strong>Nom : </strong><span id='utilisateur_nom'><?php echo $this->user->nom;?></span></p>
+                            <p><strong>Prénom : </strong><span id='utilisateur_prenom'><?php echo $this->user->prenom;?></span></p>
+                            <p><strong>E-mail : </strong><span id='utilisateur_e_mail'><?php echo $this->user->email;?></span></p>
+                            <p><span id='modif'><a href='#'>Modifier mes informations</a></span></p>
+                        </form>
+                <?php endif;?>
+            </div>
+
+        </fieldset>
+   
+</div>

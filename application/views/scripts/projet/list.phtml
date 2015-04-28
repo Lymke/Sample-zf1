@@ -1,0 +1,22 @@
+<h1><?php echo $this->translate('list-project');?></h1>
+
+<div class='row'>
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <?php foreach ($this->projects as $project): ?>
+    <div class="panel panel-default">
+      <div class="panel-heading" role="tab" id="heading<?php echo $project->id_projet;?>">
+        <h4 class="panel-title">
+          <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $project->id_projet;?>" aria-expanded="false" aria-controls="collapse<?php echo $project->id_projet;?>">
+            <?php echo $project->titre_projet;?>
+          </a>
+        </h4>
+      </div>
+      <div id="collapse<?php echo $project->id_projet;?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading<?php echo $project->id_projet;?>">
+        <div class="panel-body">
+           <?php echo $project->description_projet;?>
+        </div>
+      </div>
+    </div>
+  <?php endforeach; ?>
+</div>

@@ -1,0 +1,23 @@
+<?php echo $this->doctype() ?>
+<html lang="fr">
+  <head>
+    <?php echo $this->render('head.phtml'); ?>
+  </head>
+  
+  
+  <body>
+
+    <nav>
+         <?php echo $this->render('navbar/navbar.phtml'); ?>
+    </nav>
+    
+    <div class="container">
+          <?php echo $this->layout()->content; ?>
+    </div>
+
+    <footer>
+       <?php echo $this->render('footer.phtml'); ?>
+   </footer>
+        <?php echo $this->render('footer_js.phtml'); ?>
+  </body>
+</html>

@@ -1,0 +1,123 @@
+<div class ="row">
+    <h1>Gestion des utilisateurs</h1>
+</div>
+
+
+<div class ="row">
+
+    <table class="table  table-striped">
+
+        <thead>
+            <tr>
+                <th>Login</th>
+                <th>Role</th>
+                <th>Modifier</th>
+                <th>Supprimer</th>
+            </tr>
+        </thead>
+
+        <?php foreach ($this->userRowSet as $userRow): ?>
+
+            <tr>
+                <td><?php echo $userRow->login; ?></td>
+                <td id='role_<?php echo $userRow->id_user; ?>'><?php echo $userRow->role; ?></td>
+                <td>
+                    <form class="form-horizontal" id='f_modif' method='post'>
+                        <div class="form-group">
+                            <div class="col-sm-10">
+                                <select class="form-control" id="f_modif_role_<?php echo $userRow->id_user; ?>" name="f_modif_role_<?php echo $userRow->id_user; ?>">
+
+                                    <?php 
+                                        
+                                        foreach ($this->roleRowSet as $roleRow){
+                                            
+                                            $selected = ($roleRow->role == $userRow->role)?'selected' : '';
+                                            echo '<option value="'.$roleRow->role.'" '.$selected.'>';
+                                            echo $roleRow->role;
+                                            echo '</option>';
+                                            
+                                        }
+                                     ?>
+
+                                </select>
+
+                                <a href='#' onclick='modifier(<?php echo $userRow->id_user; ?>);'>valider</a>
+                            </div>
+                        </div>
+                    </form>
+
+
+                </td>
+                <td><a href='#' onclick='supprimer(<?php echo $userRow->id_user; ?>);'>Supprimer</a></td>
+            </tr>
+
+        <?php endforeach; ?>
+
+    </table>
+
+</div>
+
+<script language ='javascript'>
+    
+    function modifier(id_user){
+    
+        donnees = { 'id_user' : id_user,
+                    'role' : $('#f_modif_role_'+id_user).val()
+                  };
+    
+        $.ajax({		
+            url: "/admin/utilisateurs/modifier-ajax",
+            type: "post",
+            data: donnees,
+            async: false,
+            dataType: "json",//on récupère les infos au format json
+            success: function (data) 
+            { 
+                //si data vaut true c'est que le login est déjà utilisé
+                if(data == true){
+                    alert('La modification a bien été prise en compte');
+                    $('#role_' + id_user).html(donnees.role);
+                }else{
+                    alert('Il y a eu une erreur');
+                }
+		     
+            },
+											 
+            error: function() 
+            { 
+                alert('Echec de la requète ..');
+                valid = false;
+            }
+											 
+        });
+    }
+    
+    
+    function supprimer(id_user){
+    
+        if(confirm('Sûr de vouloir supprimer cet utilisateur?')){
+            donnees = { 'id_user' : id_user};
+    
+            $.ajax({		
+                url: "/admin/utilisateurs/supprimer-ajax",
+                type: "post",
+                data: donnees,
+                async: false,
+                dataType: "json",//on récupère les infos au format json
+                success: function (data) 
+                { 
+                     location.reload();
+                },
+
+                error: function() 
+                { 
+                    alert('Echec de la requète ..');
+                    valid = false;
+                }
+
+            });
+        }
+        
+    }
+    
+</script>

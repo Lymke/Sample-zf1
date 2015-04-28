@@ -1,0 +1,20 @@
+<ul class="nav navbar-nav navbar-right">
+    <li>
+        <form class="navbar-form">
+              <input class="form-control" type="text" placeholder="Search...">
+        </form>
+    </li>
+  <?php
+    if ($this->isConnected()) 
+    {
+      echo $this->render('navbar/menudroite/nav_profil.phtml');
+    } 
+    else 
+    {
+      echo $this->render('navbar/menudroite/nav_connexion.phtml');
+    }
+  ?>
+  
+  <?php echo $this->render('navbar/menudroite/nav_lang.phtml');?>
+  
+</ul>
