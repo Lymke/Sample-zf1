@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dataset>
+    <projet id_projet="1" titre_projet="system needs electricity to run"
+        description_projet="NEW" id_createur="1" />
+    <projet id_projet="2" titre_projet="Le titre"
+        description_projet="La description" id_createur="5" />
+</dataset>
